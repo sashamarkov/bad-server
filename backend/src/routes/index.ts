@@ -8,8 +8,11 @@ import orderRouter from './order'
 import productRouter from './product'
 import uploadRouter from './upload'
 
+import { doubleCsrfProtection } from '../middlewares/csrf'
+
 const router = Router()
 
+router.use(doubleCsrfProtection)
 router.use('/auth', authRouter)
 router.use('/product', productRouter)
 router.use('/order', auth, orderRouter)
