@@ -89,6 +89,9 @@ export const getOrders = async (
                     localField: 'customer',
                     foreignField: '_id',
                     as: 'customer',
+                    pipeline: [
+                        { $project: { password: 0, tokens: 0 } },
+                    ],
                 },
             },
             { $unwind: '$customer' },
