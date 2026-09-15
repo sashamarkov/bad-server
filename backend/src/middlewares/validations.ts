@@ -3,7 +3,7 @@ import { Types } from 'mongoose'
 
 // eslint-disable-next-line no-useless-escape
 // Ориентировано на российские мобильные + городские с кодом из 3 цифр
-export const phoneRegExp = /^((8|\+7)[\- ]?)?(\(?\d{3}\)?[\- ]?)?[\d\- ]{7,10}$/
+export const phoneRegExp = /^((8|\+7)[ -]?)?(\(?\d{3}\)?[ -]?)?[\d -]{7,10}$/
 
 export enum PaymentType {
     Card = 'card',

@@ -1,6 +1,6 @@
+import { Router } from 'express'
 import auth, { roleGuardMiddleware } from '../middlewares/auth'
 import { Role } from '../models/user'
-import { Router } from 'express'
 import {
     deleteCustomer,
     getCustomerById,
