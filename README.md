@@ -1,6 +1,10 @@
 # Проектная работа "WebLarek. Плохой сервер.", спринт 17
 
-https://github.com/sashamarkov/bad-server.git
+**Ссылка на репозиторий GitHub:** https://github.com/sashamarkov/bad-server
+
+**Автор:** Марков Александр
+**Когорта:** 46
+**Курс:** Fullstack разработчик расширенный
 
 ## Подготовка к работе
 

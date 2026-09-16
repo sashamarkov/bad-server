@@ -6,6 +6,8 @@ import { AppRoute } from '../../utils/constants'
 import Filter from '../filter'
 import styles from './admin.module.scss'
 import { ordersFilterFields } from './helpers/ordersFilterFields'
+import { FilterResult } from '@components/filter/helpers/types'
+import { StatusType } from '@types'
 
 export default function AdminFilterOrders() {
     const navigate = useNavigate()
@@ -15,20 +17,32 @@ export default function AdminFilterOrders() {
     const { updateFilter, clearFilters } = useActionCreators(ordersActions)
     const filterOrderOption = useSelector(ordersSelector.selectFilterOption)
 
-    const handleFilter = (filters: Record<string, any>) => {
-        dispatch(updateFilter({ ...filters, status: filters.status.value }))
-        const queryParams: { [key: string]: string } = {}
-        Object.entries(filters).forEach(([key, value]) => {
-            if (value) {
-                queryParams[key] =
-                    typeof value === 'object' ? value.value : value.toString()
-            }
+    const handleFilter = (filters: FilterResult) => {
+    const status = filters.status
+    const statusValue =
+        status && typeof status === 'object' && 'value' in status
+            ? String(status.value)
+            : undefined
+    dispatch(
+        updateFilter({
+            ...filters,
+            status: statusValue as StatusType | '' | undefined,
         })
-        setSearchParams(queryParams)
-        navigate(
-            `${AppRoute.AdminOrders}?${new URLSearchParams(queryParams).toString()}`
-        )
-    }
+    )
+    const queryParams: { [key: string]: string } = {}
+    Object.entries(filters).forEach(([key, value]) => {
+        if (value === undefined || value === null || value === '') return
+        if (typeof value === 'object' && 'value' in value) {
+            queryParams[key] = String(value.value)
+        } else {
+            queryParams[key] = String(value)
+        }
+    })
+    setSearchParams(queryParams)
+    navigate(
+        `${AppRoute.AdminOrders}?${new URLSearchParams(queryParams).toString()}`
+    )
+}
 
     const handleClearFilters = () => {
         dispatch(clearFilters())
